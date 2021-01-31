@@ -1,23 +1,8 @@
 apiVersion: v1
 kind: Service
-metadata:
-  name: prometheus-service
-  namespace: monitoring
-  
-spec:
-  selector: 
-    app: prometheus-server
-  type: NodePort  
-  ports:
-    - port: 8080
-      targetPort: {{.Values.promport}}
-      nodePort: 30000
----
-apiVersion: v1
-kind: Service
 metadata: 
   namespace: monitoring
-  name: goapp
+  name: {{.Release.Name}}
   annotations:
     prometheus.io/scrape: 'true'
     prometheus.io/port: '2112'

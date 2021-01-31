@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prometheus-deployment
+  name: {{.Release.Name}}
   namespace: monitoring
   labels:
     app: prometheus-server
@@ -36,26 +36,3 @@ spec:
   
         - name: prometheus-storage-volume
           emptyDir: {}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  namespace: monitoring
-  name: golang
-  
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: golang
-    spec:
-      containers:
-        - name: gogo
-          image: effy77/gogo2
-          ports: 
-            - containerPort: 2112
-  selector:
-    matchLabels:
-      app: golang
-

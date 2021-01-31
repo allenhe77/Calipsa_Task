@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: monitoring
+  name:  {{.Release.Name}}
+  
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: golang
+    spec:
+      containers:
+        - name: gogo
+          image: effy77/gogo2
+          ports: 
+            - containerPort: 2112
+  selector:
+    matchLabels:
+      app: golang
+
