@@ -1,0 +1,6 @@
+name: My demo
+version: 1.0.0
+description: Combining go and prom
+maintainers:
+  - name: Effy
+    email: blank
