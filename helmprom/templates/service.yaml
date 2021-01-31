@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Release.Name}}
+  namespace: monitoring
+  
+spec:
+  selector: 
+    app: prometheus-server
+  type: NodePort  
+  ports:
+    - port: 8080
+      targetPort: {{.Values.promport}}
+      nodePort: 30000
+
+

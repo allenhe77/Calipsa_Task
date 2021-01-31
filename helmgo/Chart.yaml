@@ -1,0 +1,6 @@
+name: Calipsa Task
+version: 1.0.0
+description: A go server
+maintainers:
+  - name: He TianGang
+    email: allenhe77@gmail.com
