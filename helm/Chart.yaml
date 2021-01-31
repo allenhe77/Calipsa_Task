@@ -1,6 +1,6 @@
-name: My demo
+name: Calipsa Task
 version: 1.0.0
-description: Combining go and prom
+description: A go server that is monitored by prometheus
 maintainers:
-  - name: Effy
-    email: blank
+  - name: He TianGang
+    email: allenhe77@gmail.com
