@@ -4,8 +4,12 @@ metadata:
   name: prometheus
 rules:
 - apiGroups: [""]
-  resources:
+  resources:  
+  - nodes
+  - nodes/proxy
   - services
+  - endpoints
+  - pods
   verbs: ["get", "list", "watch"]
 - apiGroups:
   - extensions
