@@ -13,9 +13,9 @@ spec:
     spec:
       containers:
         - name: gogo
-          image: effy77/gogo2
+          image: effy77/calipsa_task
           ports: 
-            - containerPort: 2112
+            - containerPort: {{.Values.goport}}
   selector:
     matchLabels:
       app: golang

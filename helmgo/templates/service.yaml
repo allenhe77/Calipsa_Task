@@ -5,7 +5,7 @@ metadata:
   name: {{.Release.Name}}
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port: '2112'
+    prometheus.io/port: '{{.Values.goport}}'
 spec:
   type: NodePort
   selector:
