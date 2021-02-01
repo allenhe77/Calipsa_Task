@@ -9,7 +9,7 @@ spec:
     app: prometheus-server
   type: NodePort  
   ports:
-    - port: 8080
+    - port: {{.Values.promport}}
       targetPort: {{.Values.promport}}
       nodePort: 30000
 

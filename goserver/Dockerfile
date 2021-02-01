@@ -10,9 +10,9 @@ COPY . /app
 
 WORKDIR /app
 
-EXPOSE 2112
+EXPOSE 8080
 
-CMD ["go","run","hello.go"]
+CMD ["go","run","main.go"]
 
 
 

@@ -21,8 +21,9 @@ spec:
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
+            - "--web.listen-address=:9110"
           ports:
-            - containerPort: 9090
+            - containerPort: {{.Values.promport}}
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus/
@@ -36,3 +37,5 @@ spec:
   
         - name: prometheus-storage-volume
           emptyDir: {}
+
+          
