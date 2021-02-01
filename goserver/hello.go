@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"sort"
 	"text/template"
@@ -10,6 +9,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
+
+const portNumber = ":8080"
 
 // the template that will be used to display the table
 const doc = `
@@ -79,7 +80,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// using sorted keys to access each element from request headers, and store them in the struct
 	for _, element := range sortedKey {
-		fmt.Println(headers[element])
 		pair := Pair{}
 		pair.Key = element
 
@@ -106,6 +106,6 @@ var (
 func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(portNumber, nil)
 
 }
