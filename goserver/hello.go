@@ -3,12 +3,15 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"sort"
+	"text/template"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+// the template that will be used to display the table
 const doc = `
 <!DOCTYPE html>
 <html>
@@ -17,73 +20,82 @@ const doc = `
     </head>
     <body>
 		
-		<table>
-			{{range .Keys}}
+		<table border="3" align="center">
 
-			<tr>
-				<td>{{.}}</td>
+		<tr>
+    		<th>Key</th>
+    		<th>Value</th>   
+  		</tr>
 
-				
-			</tr>
+			{{range .Pairs}}
 
-			
-			
-		{{end}}
+				<tr>
+				<td>
+					{{.Key}}		
+					{{range .Value}}
+						<td>
+							{{.}}
+						</td>
+					{{end}}
+				</td>
+				</tr>
+			{{end}}
 		</table>
        
     </body>
 </html>`
 
+// This is to store each key value pair from the headers
 type Pair struct {
 	Key   string
 	Value []string
 }
 
+//This is to store all the Pairs from "Pair" struct
 type Keys struct {
 	Pairs []Pair
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	// fmt.Fprint(w, "Hi there I love %s", r.URL.Path[1:])
-	opsProcessed.Inc()
+
+	opsProcessed.Inc() //increase counter for metric total by 1
+
 	headers := r.Header
-	// w.Header().Add("Content Type", "text/html")
-	// templates := template.New("template")
-	// templates.New("doc").Parse(doc)
-	a := Keys{}
+	w.Header().Add("Content Type", "text/html")
+	templates := template.New("template")
+	templates.New("doc").Parse(doc)
 
-	for index, element := range headers {
-		// fmt.Fprint(w, reflect.TypeOf(index))
-		// fmt.Fprintln(w, reflect.TypeOf(element))
+	pairs := Keys{}
 
-		pair := Pair{}
-		pair.Key = index
+	//sorting the keys first
+	var sortedKey []string
 
-		for _, value := range element {
-			pair.Value = append(pair.Value, value)
-		}
-		// for c, d := range element {
+	for index, _ := range headers {
 
-		// }
-		a.Pairs = append(a.Pairs, pair)
+		sortedKey = append(sortedKey, index)
 
 	}
+	sort.Strings(sortedKey)
 
-	fmt.Println(a)
+	// using sorted keys to access each element from request headers, and store them in the struct
+	for _, element := range sortedKey {
+		fmt.Println(headers[element])
+		pair := Pair{}
+		pair.Key = element
 
-	// templates.Lookup("doc").Execute(w, a)
+		for _, value := range headers[element] {
+			pair.Value = append(pair.Value, value)
+		}
+
+		pairs.Pairs = append(pairs.Pairs, pair)
+	}
+
+	//generate the template to be displayed
+	templates.Lookup("doc").Execute(w, pairs)
 
 }
 
-// func recordMetric() {
-// 	go func() {
-// 		for {
-// 			opsProcessed.Inc()
-// 			time.Sleep(2 * time.Second)
-// 		}
-// 	}()
-// }
-
+// for prometheus custom metric
 var (
 	opsProcessed = promauto.NewCounter(prometheus.CounterOpts{
 		Name: "total",
@@ -92,9 +104,7 @@ var (
 )
 
 func main() {
-	// recordMetric()
 	http.Handle("/metrics", promhttp.Handler())
-	// http.HandleFunc("/", handler)
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 
