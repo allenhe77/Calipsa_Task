@@ -2,6 +2,18 @@
 
 By: He TianGang
 
+# Repo Link
+
+This repo can be found at the link below:
+
+https://github.com/allenhe77/Calipsa_Task
+
+# Metric Name
+
+the name I assigned to my custom metric is:
+
+"total"
+
 # Issue with Chrome Browser
 
 My chrome browser was sending 2 requests everytime I refreshed the page for go server, 
