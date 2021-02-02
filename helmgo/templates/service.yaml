@@ -5,7 +5,7 @@ metadata:
   name: {{.Release.Name}}
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port: '{{.Values.goport}}'
+    prometheus.io/port: '{{.Values.goScrapePort}'
 spec:
   type: NodePort
   selector:
@@ -13,7 +13,7 @@ spec:
   ports:
     - name: main
       protocol: TCP
-      port: {{.Values.goport}}
-      targetPort: {{.Values.goport}}
+      port: {{.Values.goServicePort}}
+      targetPort: {{.Values.goTargetPort}}
       nodePort: 30001
 
