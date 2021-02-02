@@ -9,5 +9,14 @@ turns out it could be one of my chrome extensions is causing this, not sure if t
 will be happening on your chrome browser as well.
 
 
+# Namespace 
 
-#
+Both the golang pod and prometheus pod is confugured to run under namespace "monitoring"
+
+"kubectl create namespace monitoring"
+
+
+# Docker image url
+
+https://hub.docker.com/repository/docker/effy77/calipsa_task
+
