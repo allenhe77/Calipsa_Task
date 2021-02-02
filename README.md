@@ -2,6 +2,12 @@
 
 By: He TianGang
 
+# Metric Name
+
+the name I assigned to my custom metric is:
+
+"total"
+
 # Issue with Chrome Browser
 
 My chrome browser was sending 2 requests everytime I refreshed the page for go server, 
