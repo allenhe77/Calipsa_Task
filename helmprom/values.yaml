@@ -1,1 +1,3 @@
-promport: 9110
+promServicePort: 9110
+promContainerPort: 9110
+promTargetPort: 9110

@@ -1,1 +1,4 @@
-goport: 8080
+goServicePort: 8080
+goContainerPort: 8080
+goScrapePort: 8080
+goTargetPort: 8080

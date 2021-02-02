@@ -23,7 +23,7 @@ spec:
             - "--storage.tsdb.path=/prometheus/"
             - "--web.listen-address=:9110"
           ports:
-            - containerPort: {{.Values.promport}}
+            - containerPort: {{.Values.promContainerPort}}
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus/
